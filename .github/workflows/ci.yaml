@@ -24,8 +24,17 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install pytest streamlit
+        pip install pytest streamlit flake8 black
 
-    - name: Run Streamlit application
+    - name: Run code quality checks
       run: |
-        streamlit run app.py
+        # Check for style issues with flake8
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=88 --statistics
+        
+        # Format and check code with black
+        black --check .
+
+    - name: Run tests
+      run: |
+        pytest _test.py
