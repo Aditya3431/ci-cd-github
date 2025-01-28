@@ -26,6 +26,6 @@ jobs:
         python -m pip install --upgrade pip
         pip install pytest streamlit
 
-    - name: Run tests
+    - name: Run Streamlit application
       run: |
-        streamlit run app,py
+        streamlit run app.py
